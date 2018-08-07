@@ -1,0 +1,17 @@
+{
+    "smtp": {
+        "host": "mail.mydomain.com",
+        "port": 465,
+        "secure": true,
+        "auth": {
+            "user": "myusername",
+            "pass": "mypassword"
+        }
+    },
+    "mail": {
+        "from": "\"Mailgun Events\" <no-reply@mydomain.com>",
+        "to": "me@mydomain.com",
+        "subject": "Mailgun Event"
+    },
+    "apiKey": "key-0123456789abcdef0123456789abcdef"
+}

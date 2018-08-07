@@ -1,0 +1,7 @@
+#!include:.gitignore
+*.md
+test*.js
+*.zip
+*.sh
+*.example
+!mail.settings
