@@ -26,10 +26,10 @@ function createWebhook(handler) {
 
 function createMailer(settings) {
     const transporter = nodemailer.createTransport(settings.smtp);
-    return (data, callback) => {
+    return (body, subject, callback) => {
         try {
-            const mail = Object.assign({}, settings.mail);
-            mail.text = JSON.stringify(data, null, 2) + '\n';
+            const mail = Object.assign({}, settings.mail, {subject});
+            mail.text = JSON.stringify(body, null, 2) + '\n';
             transporter.sendMail(mail, callback);
         }
         catch (err) {
@@ -63,7 +63,12 @@ function cloudFunction(req, res) {
                         callback(err);
                     }
                     else {
-                        mailer(data['event-data'], callback);
+                        const eventData = data['event-data'];
+                        let subject;
+                        if (eventData.message && eventData.message.headers) {
+                            subject = eventData.message.headers.subject;
+                        }
+                        mailer(eventData, subject || 'Mailgun Event', callback);
                     }
                 });
             });
